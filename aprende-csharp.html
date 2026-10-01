@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aprende C# · Aprende programando</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1f;--glass:rgba(255,255,255,.06);--line:rgba(255,255,255,.14);--tx:#e8edff;--mu:#9aa6d1;--cy:#22e5ff;--mg:#ff4fd8;--li:#b6ff5c;--rd:#ff6b7a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;color:var(--tx);font:16px/1.6 'Space Grotesk',system-ui,sans-serif;background:var(--bg);
+background-image:radial-gradient(600px 400px at 10% -5%,rgba(34,229,255,.18),transparent),radial-gradient(500px 400px at 100% 10%,rgba(255,79,216,.15),transparent);background-attachment:fixed;min-height:100vh}
+.mono,code,pre,textarea{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace}
+header{padding:20px 20px 8px;max-width:1100px;margin:auto}
+h1{margin:0;font-size:clamp(1.5rem,4vw,2.3rem)}
+h1 b{color:var(--cy)}
+.bar{height:10px;background:var(--glass);border-radius:9px;overflow:hidden;margin:12px 0 6px;border:1px solid var(--line)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cy),var(--mg));transition:width .6s}
+.sub{color:var(--mu);font-size:.9rem;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:18px;max-width:1100px;margin:auto;padding:12px 20px 40px}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+nav{display:flex;flex-direction:column;gap:8px;align-self:start}
+nav button{all:unset;cursor:pointer;padding:12px 14px;border-radius:14px;display:flex;gap:10px;align-items:center}
+nav button:focus-visible,.tab:focus-visible,.btn:focus-visible,.opt:focus-visible{outline:2px solid var(--cy);outline-offset:2px}
+nav button.on{border-color:var(--cy);box-shadow:0 0 18px rgba(34,229,255,.25)}
+nav button[disabled]{opacity:.4;cursor:not-allowed}
+nav small{display:block;color:var(--mu)}
+.badge{font-size:1.5rem;filter:grayscale(1) opacity(.4)}
+.badge.got{filter:none;animation:pop .6s}
+@keyframes pop{0%{transform:scale(.2) rotate(-40deg)}70%{transform:scale(1.5)}100%{transform:scale(1)}}
+main{padding:20px;min-width:0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tab{all:unset;cursor:pointer;padding:7px 12px;border-radius:99px;border:1px solid var(--line);font-size:.85rem;color:var(--mu)}
+.tab.on{background:var(--cy);color:#04141a;font-weight:700}
+.tab.ok::after{content:" ✓";color:var(--li)}.tab.on.ok::after{color:#04141a}
+h2{margin:0 0 8px;font-size:1.5rem}
+.btn{all:unset;cursor:pointer;display:inline-block;margin-top:14px;padding:10px 18px;border-radius:12px;background:linear-gradient(90deg,var(--cy),var(--mg));color:#07101c;font-weight:700}
+.btn:hover{filter:brightness(1.15)}
+.tip{border-left:3px solid var(--li);padding:6px 12px;background:rgba(182,255,92,.07);border-radius:0 10px 10px 0}
+code{background:rgba(255,255,255,.1);padding:1px 6px;border-radius:6px;color:var(--cy);font-size:.9em}
+.flow{display:flex;flex-direction:column;align-items:center;gap:0}
+.blk{border:1px solid var(--cy);padding:9px 18px;border-radius:10px;cursor:pointer;background:rgba(34,229,255,.08);color:var(--tx);text-align:center;font-family:inherit;font-size:.95rem}
+.blk:hover,.blk.sel{background:rgba(34,229,255,.28);box-shadow:0 0 14px rgba(34,229,255,.4)}
+.blk.start{border-radius:99px;border-color:var(--li)}
+.blk.dec{border-color:var(--mg);background:rgba(255,79,216,.1);clip-path:polygon(8% 0,92% 0,100% 50%,92% 100%,8% 100%,0 50%);padding:12px 30px}
+.arr{color:var(--mu);line-height:1.3}
+.par{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+#cap{min-height:3em;margin-top:14px;text-align:center;color:var(--li)}
+.ide{background:#060916;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.ide .top{display:flex;gap:6px;padding:8px 12px;background:rgba(255,255,255,.05)}
+.ide .top i{width:11px;height:11px;border-radius:50%;background:var(--rd)}.ide .top i:nth-child(2){background:#ffd166}.ide .top i:nth-child(3){background:var(--li)}
+.ide pre{margin:0;padding:6px 14px;color:var(--mu);font-size:.85rem}
+textarea{width:100%;min-height:150px;resize:vertical;background:transparent;color:var(--li);border:0;border-left:2px solid var(--cy);padding:6px 14px;font-size:.9rem;outline:0;display:block;tab-size:4}
+.term{margin-top:12px;padding:12px 14px;border-radius:12px;background:#000;white-space:pre-wrap;font-size:.88rem;min-height:3em;color:var(--li)}
+.term.err{color:var(--rd);border:1px solid var(--rd)}
+.q{margin:16px 0}.opt{all:unset;cursor:pointer;display:block;margin:6px 0;padding:9px 14px;border:1px solid var(--line);border-radius:10px;width:calc(100% - 30px)}
+.opt:hover{border-color:var(--cy)}.opt.ok{border-color:var(--li);background:rgba(182,255,92,.15)}.opt.bad{border-color:var(--rd);background:rgba(255,107,122,.15)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmp pre{margin:0;padding:12px;border-radius:12px;background:#060916;font-size:.82rem;overflow-x:auto;border:1px solid var(--line)}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);padding:12px 22px;border-radius:14px;background:var(--li);color:#07101c;font-weight:700;transition:transform .4s;z-index:9}
+#toast.show{transform:translate(-50%,0)}
+.cf{position:fixed;top:-10px;width:9px;height:14px;z-index:8;animation:fall 1.8s ease-in forwards}
+@keyframes fall{to{transform:translate(var(--x),100vh) rotate(720deg);opacity:0}}
+@media(max-width:800px){.layout{grid-template-columns:1fr}nav{flex-direction:row;overflow-x:auto}nav button{flex:0 0 auto}nav small{display:none}.cmp{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Aprende <b>C#</b></h1>
+  <div class="sub"><span>5 módulos · 5 fases cada uno: Análisis → Diseño → Implementación → Pruebas → Mantenimiento</span><span id="pct">0%</span></div>
+  <div class="bar"><i id="fill"></i></div>
+</header>
+<div class="layout"><nav id="nav"></nav><main class="glass" id="main"></main></div>
+<div id="toast"></div>
+
+<script>
+/* =====================================================================
+   CONTENIDO DEL CURSO (para el profesor)
+   Para agregar un tema nuevo, copia un objeto de MODS y edita sus campos:
+   - title / icon / badge: nombre, emoji del módulo y emoji de la medalla
+   - analysis: HTML de la Fase 1 (concepto en lenguaje cotidiano)
+   - flow: Fase 2. Cada bloque {t:texto, k:'start'|'proc'|'dec', d:explicación al hacer clic}
+           o {par:[bloque,bloque]} para ramas paralelas
+   - head/foot: líneas fijas del código que rodean al editor (Fase 3)
+   - code: código inicial editable
+   - checks: lista de [expresión regular, mensaje de error]; el código debe cumplirlas todas
+   - out: texto de salida simulada (string) o función(code) que lo calcula
+   - quiz: Fase 4, preguntas {q, o:[opciones], a:índice correcto}
+   - better: Fase 5, {bad, good, tip} buenas prácticas
+   ===================================================================== */
+const MAIN_HEAD="class Program\n{\n    static void Main()\n    {", MAIN_FOOT="    }\n}";
+const MODS=[
+{title:"Hola Mundo",icon:"👋",badge:"🌍",
+ analysis:`<p>Una computadora es como un cocinero muy obediente: hace <b>exactamente</b> lo que dice la receta, paso a paso, sin adivinar nada. C# es el idioma en el que escribimos esa receta.</p>
+ <p>Todo programa C# empieza en <code>Main</code>. Para mostrar texto en pantalla usamos <code>Console.WriteLine("texto");</code> y cada instrucción termina con punto y coma <code>;</code>.</p>`,
+ flow:[{t:"Inicio",k:"start",d:"El programa arranca en Main."},{t:"Escribir mensaje en pantalla",d:"Console.WriteLine muestra el texto y salta de línea."},{t:"Fin",k:"start",d:"Al terminar Main, el programa se cierra."}],
+ head:MAIN_HEAD,foot:MAIN_FOOT,code:`// Escribe tu mensaje entre comillas\nConsole.WriteLine("");`,
+ checks:[[/Console\.WriteLine\(\s*"[^"]+"\s*\)\s*;/,"Escribe un mensaje dentro de las comillas y termina con ;"]],
+ out:c=>[...c.matchAll(/Console\.WriteLine\(\s*"([^"]*)"\s*\)/g)].map(m=>m[1]).join("\n"),
+ quiz:[{q:"¿Con qué símbolo termina cada instrucción en C#?",o:["Punto .","Punto y coma ;","Dos puntos :"],a:1},{q:"¿Qué hace Console.WriteLine?",o:["Borra la pantalla","Lee un archivo","Muestra texto en pantalla"],a:2}],
+ better:{bad:'Console.WriteLine("hola")\nconsole.writeline("Mundo");',good:'// Saludo inicial\nConsole.WriteLine("Hola");\nConsole.WriteLine("Mundo");',tip:"C# distingue mayúsculas de minúsculas y exige ;. Un comentario (//) explica el porqué a quien lea tu código."}},
+
+{title:"Variables y tipos",icon:"📦",badge:"🧰",
+ analysis:`<p>Una variable es una <b>caja con etiqueta</b> donde guardas un dato. Cada caja acepta un solo tipo de cosa:</p>
+ <p><code>int</code> números enteros · <code>double</code> decimales · <code>string</code> texto · <code>bool</code> verdadero/falso.</p>
+ <p class="tip">Ejemplo: <code>int edad = 15;</code> significa "crea una caja de enteros llamada edad y guarda 15".</p>`,
+ flow:[{t:"Inicio",k:"start",d:"Comienza el programa."},{t:"Crear caja 'nombre' (string)",d:"Reservamos memoria para texto."},{t:"Crear caja 'edad' (int)",d:"Reservamos memoria para un número entero."},{t:"Mostrar nombre y edad",d:"Se leen las cajas y se imprime su contenido."},{t:"Fin",k:"start",d:"Fin del programa."}],
+ head:MAIN_HEAD,foot:MAIN_FOOT,code:`// 1) Crea la variable string nombre\n// 2) Crea la variable int edad\nConsole.WriteLine(nombre + " tiene " + edad + " años");`,
+ checks:[[/string\s+nombre\s*=\s*"[^"]*"\s*;/,'Falta declarar: string nombre = "tu nombre";'],[/int\s+edad\s*=\s*\d+\s*;/,"Falta declarar: int edad = 15; (un número entero sin comillas)"]],
+ out:c=>c.match(/string\s+nombre\s*=\s*"([^"]*)"/)[1]+" tiene "+c.match(/int\s+edad\s*=\s*(\d+)/)[1]+" años",
+ quiz:[{q:"¿Qué tipo usarías para guardar true o false?",o:["bool","string","int"],a:0},{q:'¿Cuál declaración es correcta?',o:['int nombre = "Ana";','string nombre = "Ana";','string nombre = Ana;'],a:1}],
+ better:{bad:"int x = 15;\nstring a = \"Ana\";",good:"int edadAlumno = 15;\nstring nombreAlumno = \"Ana\";",tip:"Usa nombres que cuenten qué guarda la variable. Convención: camelCase (primera palabra en minúscula)."}},
+
+{title:"Decisiones",icon:"🔀",badge:"🧭",
+ analysis:`<p>En la vida decides así: <i>"si llueve, llevo paraguas; si no, no"</i>. En C# se escribe con <code>if</code> / <code>else</code>. La condición va entre paréntesis y da <code>true</code> o <code>false</code>.</p>
+ <p>Comparadores: <code>==</code> igual · <code>!=</code> distinto · <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>. Cuando hay muchas opciones fijas, <code>switch</code> es más ordenado.</p>`,
+ flow:[{t:"Inicio",k:"start",d:"Se guarda edad = 17."},{t:"¿edad >= 18?",k:"dec",d:"Aquí el programa se bifurca según la condición."},{par:[{t:"Sí → 'Puedes votar'",d:"Se ejecuta el bloque if."},{t:"No → 'Aún no puedes votar'",d:"Se ejecuta el bloque else."}]},{t:"Fin",k:"start",d:"Ambos caminos se juntan al final."}],
+ head:MAIN_HEAD,foot:MAIN_FOOT,code:`int edad = 17;\n// Si edad >= 18 escribe "Puedes votar"\n// si no, escribe "Aún no puedes votar"`,
+ checks:[[/if\s*\(\s*edad\s*>=\s*18\s*\)/,"Falta la condición: if (edad >= 18)"],[/else/,"Falta el camino alternativo: else"],[/Console\.WriteLine/,"Usa Console.WriteLine para mostrar el resultado"]],
+ out:c=>(+c.match(/int\s+edad\s*=\s*(\d+)/)[1]>=18?"Puedes votar":"Aún no puedes votar"),
+ quiz:[{q:"¿Qué operador compara si dos valores son iguales?",o:["=","==","=>"],a:1},{q:"¿Cuándo se ejecuta el bloque else?",o:["Cuando la condición es falsa","Siempre","Cuando la condición es verdadera"],a:0}],
+ better:{bad:"if (edad >= 18)\nConsole.WriteLine(\"Sí\");\nConsole.WriteLine(\"No\");",good:"if (edad >= 18)\n{\n    Console.WriteLine(\"Sí\");\n}\nelse\n{\n    Console.WriteLine(\"No\");\n}",tip:"Usa siempre llaves { } aunque sea una sola línea: evitas errores y se lee mejor. Indenta con 4 espacios."}},
+
+{title:"Bucles",icon:"🔁",badge:"🌀",
+ analysis:`<p>Si te piden escribir "Hola" 100 veces, no escribes 100 líneas: usas un <b>bucle</b>. Es una instrucción que se repite mientras se cumpla una condición.</p>
+ <p><code>for</code> cuando sabes cuántas veces: <code>for (int i = 1; i &lt;= 5; i++)</code> (empieza, hasta cuándo, cómo avanza). <code>while</code> cuando repites "mientras algo sea cierto".</p>`,
+ flow:[{t:"Inicio",k:"start",d:"Comienza el programa."},{t:"i = 1",d:"Contador inicial."},{t:"¿i <= 5?",k:"dec",d:"Se evalúa antes de cada vuelta."},{par:[{t:"Sí → mostrar i, i++ y volver a la pregunta",d:"El cuerpo del bucle se repite."},{t:"No → salir del bucle",d:"Cuando i llega a 6 se detiene."}]},{t:"Fin",k:"start",d:"Fin del programa."}],
+ head:MAIN_HEAD,foot:MAIN_FOOT,code:`// Muestra los números del 1 al 5 usando un for`,
+ checks:[[/for\s*\(\s*int\s+\w+\s*=\s*1\s*;\s*\w+\s*<=\s*5\s*;\s*\w+\+\+\s*\)/,"Estructura esperada: for (int i = 1; i <= 5; i++)"],[/Console\.WriteLine\(\s*i\s*\)/,"Dentro del bucle escribe Console.WriteLine(i);"]],
+ out:"1\n2\n3\n4\n5",
+ quiz:[{q:"¿Qué hace i++?",o:["Resta 1 a i","Suma 1 a i","Reinicia i"],a:1},{q:"Un bucle cuya condición siempre es true…",o:["Termina rápido","Nunca termina (bucle infinito)","Da error de sintaxis"],a:1}],
+ better:{bad:"for (int i = 1; i <= 5; i--)\n{ ... }",good:"for (int i = 1; i <= 5; i++)\n{\n    Console.WriteLine(i);\n}",tip:"Revisa que el contador avance hacia la condición de salida; si no, creas un bucle infinito."}},
+
+{title:"Métodos",icon:"🧩",badge:"🏆",
+ analysis:`<p>Un método es una <b>receta con nombre</b> que puedes usar cuantas veces quieras. En vez de repetir código, lo escribes una vez y lo "llamas".</p>
+ <p>Forma: <code>static void Saludar(string nombre) { ... }</code>. <code>void</code> = no devuelve nada; entre paréntesis van los <b>parámetros</b> (los datos que recibe).</p>`,
+ flow:[{t:"Inicio (Main)",k:"start",d:"El programa siempre arranca en Main."},{t:"Llamar Saludar(\"Luis\")",d:"Main salta al método y le pasa 'Luis'."},{t:"Dentro de Saludar: mostrar mensaje",d:"El método usa el parámetro nombre."},{t:"Volver a Main y terminar",k:"start",d:"Al acabar el método, el control regresa."}],
+ head:"class Program\n{",foot:"}",code:`static void Saludar(string nombre)\n{\n    // Muestra: Hola, Luis (usa el parámetro nombre)\n}\n\nstatic void Main()\n{\n    Saludar("Luis");\n}`,
+ checks:[[/static\s+void\s+Saludar\s*\(\s*string\s+(\w+)\s*\)\s*\{[^}]*Console\.WriteLine\([^;]*\)\s*;/,"Dentro de Saludar falta un Console.WriteLine(...);"],[/Console\.WriteLine\([^;]*"Hola,?\s*"?\s*\+\s*nombre|Console\.WriteLine\(\$"Hola,?\s*\{nombre\}/,'Combina "Hola, " con el parámetro: "Hola, " + nombre'],[/Saludar\s*\(\s*"[^"]+"\s*\)\s*;/,"Main debe llamar a Saludar(\"...\");"]],
+ out:"Hola, Luis",
+ quiz:[{q:"¿Qué significa void?",o:["El método no devuelve valor","El método está vacío","El método es privado"],a:0},{q:"¿Cómo se llaman los datos entre paréntesis en un método?",o:["Parámetros","Comentarios","Bucles"],a:0}],
+ better:{bad:'Console.WriteLine("Hola Ana");\nConsole.WriteLine("Hola Luis");\nConsole.WriteLine("Hola Eva");',good:'Saludar("Ana");\nSaludar("Luis");\nSaludar("Eva");',tip:"Principio DRY: no te repitas. Si copias y pegas código, probablemente necesitas un método. Nómbralo con un verbo (PascalCase)."}}
+];
+
+/* ======================== LÓGICA DE LA APP ======================== */
+const PH=["1 · Análisis","2 · Diseño","3 · Código","4 · Pruebas","5 · Mejora"];
+let S={m:0,p:0,done:MODS.map(()=>[0,0,0,0,0]),qa:{},code:{},fix:{}};
+try{const s=JSON.parse(localStorage.getItem("csharp-cascada"));if(s&&s.done&&s.done.length==MODS.length)S=Object.assign(S,s)}catch(e){}
+const save=()=>{try{localStorage.setItem("csharp-cascada",JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const modDone=i=>S.done[i].every(Boolean);
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+
+function mark(p){
+  const was=modDone(S.m);S.done[S.m][p]=1;save();
+  if(!was&&modDone(S.m)){confetti();toast("🎉 ¡Módulo completado! Medalla "+MODS[S.m].badge)}
+  render();
+}
+function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2600)}
+function confetti(){if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+  for(let i=0;i<40;i++){const c=document.createElement("i");c.className="cf";c.style.left=Math.random()*100+"vw";
+  c.style.background=["#22e5ff","#ff4fd8","#b6ff5c","#ffd166"][i%4];c.style.setProperty("--x",(Math.random()*160-80)+"px");
+  c.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),2500)}}
+
+function blk(b){return `<button class="blk ${b.k||""}" data-d="${b.d}">${b.t}</button>`}
+function render(){
+  const M=MODS[S.m],tot=S.done.flat().filter(Boolean).length,pc=Math.round(tot/(MODS.length*5)*100);
+  $("fill").style.width=pc+"%";$("pct").textContent=pc+"% · "+S.done.filter((_,i)=>modDone(i)).length+" medallas";
+  $("nav").innerHTML=MODS.map((m,i)=>{const lock=i>0&&!modDone(i-1);
+    return `<button class="glass ${i==S.m?"on":""}" data-m="${i}" ${lock?"disabled":""}><span class="badge ${modDone(i)?"got":""}">${lock?"🔒":m.badge}</span><span>Módulo ${i+1}<small>${m.title}</small></span></button>`}).join("");
+  const tabs=`<div class="tabs">${PH.map((n,i)=>`<button class="tab ${i==S.p?"on":""} ${S.done[S.m][i]?"ok":""}" data-p="${i}">${n}</button>`).join("")}</div>`;
+  let h="";
+  if(S.p==0)h=`<h2>${M.icon} ${M.title}: ¿qué necesitamos entender?</h2>${M.analysis}<button class="btn" data-a="0">Entendido</button>`;
+  if(S.p==1)h=`<h2>Diseña la lógica antes de programar</h2><p>Toca cada bloque para ver qué significa.</p><div class="flow">${M.flow.map((b,i)=>(i?'<div class="arr">▼</div>':"")+(b.par?`<div class="par">${b.par.map(blk).join("")}</div>`:blk(b))).join("")}</div><div id="cap"></div><button class="btn" data-a="1">Ya entiendo el diagrama</button>`;
+  if(S.p==2){const c=S.code[S.m]??M.code;
+    h=`<h2>Escribe el código C#</h2><p>Completa las instrucciones indicadas en los comentarios y pulsa Ejecutar.</p><div class="ide"><div class="top"><i></i><i></i><i></i></div><pre>${esc(M.head)}</pre><textarea id="ed" spellcheck="false" aria-label="Editor de código C#">${esc(c)}</textarea><pre>${esc(M.foot)}</pre></div><button class="btn" id="run">▶ Ejecutar</button><div class="term" id="term">Salida de consola…</div>`}
+  if(S.p==3){h=`<h2>Verifica lo aprendido</h2>`+M.quiz.map((q,i)=>{const k=S.m+"-"+i,s=S.qa[k];
+    return `<div class="q"><b>${q.q}</b>${q.o.map((o,j)=>`<button class="opt ${s===j?(j==q.a?"ok":"bad"):""}" data-q="${i}" data-o="${j}">${o}</button>`).join("")}</div>`}).join("")+(S.done[S.m][3]?"<p class='tip'>¡Todas correctas!</p>":"")}
+  if(S.p==4){const f=S.fix[S.m],B=M.better;
+    h=`<h2>Mejora tu código</h2><div class="cmp"><pre>${esc(f?B.good:B.bad)}</pre><pre style="border-color:var(--li)">${esc(B.good)}</pre></div><p class="tip">${B.tip}</p>${f?"":'<button class="btn" data-a="fix">Aplicar mejora</button>'}${S.done[S.m][4]?"":""}`}
+  $("main").innerHTML=tabs+h;
+}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;
+  if(t.dataset.m!=null){S.m=+t.dataset.m;S.p=0;render()}
+  else if(t.dataset.p!=null){S.p=+t.dataset.p;render()}
+  else if(t.dataset.a==="fix"){S.fix[S.m]=1;mark(4)}
+  else if(t.dataset.a!=null)mark(+t.dataset.a);
+  else if(t.dataset.d!=null){document.querySelectorAll(".blk").forEach(b=>b.classList.remove("sel"));t.classList.add("sel");$("cap").textContent=t.dataset.d}
+  else if(t.dataset.q!=null){const q=+t.dataset.q;S.qa[S.m+"-"+q]=+t.dataset.o;save();
+    if(MODS[S.m].quiz.every((x,i)=>S.qa[S.m+"-"+i]===x.a))mark(3);else render()}
+  else if(t.id==="run")run();
+});
+document.addEventListener("input",e=>{if(e.target.id==="ed"){S.code[S.m]=e.target.value;save()}});
+
+/* Ejecución simulada: valida el código con las expresiones regulares del módulo */
+function run(){
+  const M=MODS[S.m],code=$("ed").value,term=$("term");
+  const nocom=code.replace(/\/\/.*$/gm,"");
+  for(const [re,msg] of M.checks){
+    if(!re.test(nocom)){term.className="term err";term.textContent="error CS1002: "+msg;return}
+  }
+  term.className="term";term.textContent="> "+(typeof M.out==="function"?M.out(nocom):M.out).replace(/\n/g,"\n> ")+"\n\n✔ Compilación exitosa";
+  if(!S.done[S.m][2])mark2();
+}
+function mark2(){setTimeout(()=>{const t=$("term").textContent;mark(2);const e=$("term");if(e){e.textContent=t}},600)}
+render();
+</script>
+</body>
+</html>
